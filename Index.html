@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Template Generator BayooMods</title>
+    <style>
+        body { font-family: sans-serif; padding: 20px; background-color: #f4f4f4; }
+        .container { max-width: 600px; background: white; padding: 20px; border-radius: 10px; box-shadow: 0 0 10px rgba(0,0,0,0.1); margin: auto; }
+        h2 { text-align: center; color: #333; }
+        label { display: block; margin-top: 10px; font-weight: bold; }
+        input, textarea { width: 100%; padding: 8px; margin-top: 5px; border: 1px solid #ccc; border-radius: 5px; box-sizing: border-box; }
+        button { width: 100%; padding: 10px; background-color: #28a745; color: white; border: none; border-radius: 5px; margin-top: 20px; cursor: pointer; font-size: 16px; }
+        button:hover { background-color: #218838; }
+        #output { background: #e9ecef; padding: 15px; margin-top: 20px; border-radius: 5px; white-space: pre-wrap; border: 1px dashed #999; }
+        .copy-btn { background-color: #007bff; margin-top: 10px; }
+        .copy-btn:hover { background-color: #0069d9; }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <h2>Generator Template Mod</h2>
+    
+    <label>Nama Game:</label>
+    <input type="text" id="game" placeholder="Contoh: fishing Mega battle">
+    
+    <label>Type Hack:</label>
+    <input type="text" id="type" placeholder="Contoh: LIBTOOL">
+    
+    <label>Features (Gunakan koma untuk pemisah):</label>
+    <input type="text" id="features" placeholder="Contoh: Remove ads, Add gold">
+    
+    <label>Versi:</label>
+    <input type="text" id="version" value="FREE">
+    
+    <label>Link Video YouTube:</label>
+    <input type="text" id="video" placeholder="https://youtu.be/...">
+    
+    <label>Link Game (Playstore):</label>
+    <input type="text" id="gamelink" placeholder="https://play.google.com/...">
+
+    <button onclick="generateTemplate()">Generate Template</button>
+
+    <div id="output">Hasil template akan muncul di sini...</div>
+    <button class="copy-btn" onclick="copyText()">Salin Teks</button>
+</div>
+
+<script>
+    function generateTemplate() {
+        const game = document.getElementById('game').value.toUpperCase();
+        const type = document.getElementById('type').value.toUpperCase();
+        const version = document.getElementById('version').value.toUpperCase();
+        const video = document.getElementById('video').value;
+        const gamelink = document.getElementById('gamelink').value;
+        
+        // Memproses Fitur agar ada emoji list
+        const featuresInput = document.getElementById('features').value.split(',');
+        let featuresList = "";
+        featuresInput.forEach(feat => {
+            if(feat.trim() !== "") {
+                featuresList += "🔓 " + feat.trim() + "\n";
+            }
+        });
+
+        const template = `🎮 GAME: ${game} 
+⚙️ TYPE HACK: ${type}
+✅ FEATURES:
+${featuresList.trim()}
+
+🎁 VERSION: ${version}
+
+Buat yang mau request-nya diproses lebih cepat atau mau support supaya update terus, boleh kali traktir kopi dulu di sini
+☕ Link Traktir/Donasi: https://sociabuzz.com/bayoomods/tribe
+📺 Video : ${video}
+🔗 Game Link: ${gamelink}`;
+
+        document.getElementById('output').innerText = template;
+    }
+
+    function copyText() {
+        const text = document.getElementById('output').innerText;
+        navigator.clipboard.writeText(text).then(() => {
+            alert("Template berhasil disalin!");
+        });
+    }
+</script>
+
+</body>
+</html>
